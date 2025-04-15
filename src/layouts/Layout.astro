@@ -21,6 +21,10 @@ const ogImage = `${siteUrl}/images/og-image.jpg`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Primary Meta Tags -->
@@ -49,6 +53,16 @@ const ogImage = `${siteUrl}/images/og-image.jpg`;
     <meta name="author" content={siteName} />
     <meta name="theme-color" content="#1e293b" />
     <link rel="canonical" href={siteUrl + Astro.url.pathname} />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-74NMWBRPMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-74NMWBRPMT');
+    </script>
   </head>
   <body>
     <header class={`${isHomePage ? 'absolute' : 'bg-slate-900'} w-full z-50`}>
