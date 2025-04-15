@@ -1,0 +1,67 @@
+---
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>OG Image Template</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1200px;
+      height: 630px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #1e293b;
+      color: white;
+      font-family: system-ui, -apple-system, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: url('/images/rough-overlay.svg');
+      mix-blend-mode: soft-light;
+      opacity: 0.3;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+    }
+
+    .logo {
+      width: 300px;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 64px;
+      margin: 0 0 1rem;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 32px;
+      margin: 0;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="content">
+    <img src="/images/logo-main.svg" alt="Bibles & Jiu Jitsu" class="logo">
+    <h1>Faith Meets Fitness</h1>
+    <p>Join our Austin community for Bible study and No-Gi Jiu Jitsu</p>
+  </div>
+</body>
+</html>

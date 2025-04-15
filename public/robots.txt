@@ -1,0 +1,18 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://biblesandjiujitsu.com/sitemap.xml
+
+# Prevent crawling of API endpoints
+Disallow: /api/
+
+# Common files and directories to exclude
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /search
+Disallow: /*?*
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
