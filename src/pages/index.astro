@@ -1,9 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Fetch Instagram posts
-const response = await fetch('http://localhost:4321/api/instagram');
-const instagramData = response.ok ? await response.json() : { data: [] };
+// Remove server-side Instagram fetch
+const instagramData = { data: [] };
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -345,28 +344,8 @@ const instagramData = response.ok ? await response.json() : { data: [] };
           </a>
         </p>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {
-          instagramData.data.slice(0, 8).map((post: any) => (
-            <a
-              href={post.permalink}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="aspect-square rounded-2xl overflow-hidden group relative"
-            >
-              <img
-                src={post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url}
-                alt={post.caption?.slice(0, 100) || 'Instagram post'}
-                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                <span class="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  View Post →
-                </span>
-              </div>
-            </a>
-          ))
-        }
+      <div id="instagram-feed" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- Instagram posts will be loaded here -->
       </div>
     </div>
   </section>
@@ -539,4 +518,42 @@ END:VCALENDAR`;
     link.click();
     document.body.removeChild(link);
   });
+
+  // Add Instagram feed fetching
+  async function loadInstagramFeed() {
+    try {
+      const response = await fetch('/api/instagram');
+      const data = await response.json();
+
+      const feedContainer = document.getElementById('instagram-feed');
+      if (!feedContainer) return;
+
+      const posts = data.data.slice(0, 8).map(post => `
+        <a
+          href="${post.permalink}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="aspect-square rounded-2xl overflow-hidden group relative"
+        >
+          <img
+            src="${post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url}"
+            alt="${post.caption?.slice(0, 100) || 'Instagram post'}"
+            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+            <span class="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              View Post →
+            </span>
+          </div>
+        </a>
+      `).join('');
+
+      feedContainer.innerHTML = posts;
+    } catch (error) {
+      console.error('Error loading Instagram feed:', error);
+    }
+  }
+
+  // Load Instagram feed when the page loads
+  loadInstagramFeed();
 </script>
